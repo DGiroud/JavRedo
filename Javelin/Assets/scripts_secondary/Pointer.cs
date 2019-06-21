@@ -13,6 +13,7 @@ public class Pointer : MonoBehaviour
 
     private Transform OriginController = null;
     private GameObject m_CurrentObject = null;
+    private GameObject m_lastHitObject;
 
     private void Start()
     {
@@ -64,29 +65,28 @@ public class Pointer : MonoBehaviour
 
     private GameObject UpdatePointerStatus() {
         RaycastHit hit = CreateRayCast(m_InteractibleObjects);
+        Material mat = hit.transform.GetComponent<Renderer>().material;
 
         if (hit.collider)
         {
-            Material mat = hit.transform.GetComponent<Renderer>().material;
             mat.SetFloat("_ASEOutlineWidth", 0.3f);
-            return hit.collider.gameObject;
         }
-        else {
 
-            Material mat = hit.transform.GetComponent<Renderer>().material;
-            mat.SetFloat("_ASEOutlineWidth", 0.0f);
-            return hit.collider.gameObject;
-        }
-        return null;
+        m_lastHitObject = hit.collider.gameObject;
+        return hit.collider.gameObject;
     }
 
     private Vector3 UpdateLine() {
         RaycastHit hit = CreateRayCast(m_AllObjects);
-
         Vector3 endPos = OriginController.position + (OriginController.forward * m_Distance);
 
         if (hit.collider != null)
             endPos = hit.point;
+
+        if (m_lastHitObject != null && hit.collider.gameObject != m_lastHitObject)
+        {
+            m_lastHitObject.GetComponent<Renderer>().material.SetFloat("_ASEOutlineWidth", 0.0f);
+        }
 
         lineRenderer.SetPosition(0, OriginController.position);
         lineRenderer.SetPosition(1, endPos);
@@ -97,7 +97,7 @@ public class Pointer : MonoBehaviour
     private RaycastHit CreateRayCast(int layer) {
         RaycastHit hit;
         Ray ray = new Ray(OriginController.position, OriginController.forward);
-        Physics.Raycast(ray, out hit, m_Distance, layer);
+        Physics.Raycast(ray, out hit, m_Distance, layer);     
         return hit;
     }
 
