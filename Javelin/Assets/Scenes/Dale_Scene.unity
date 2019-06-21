@@ -4718,7 +4718,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330500294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1127, y: 0.8334, z: 0.576}
+  m_LocalPosition: {x: 0.1015, y: 0.8334, z: 0.576}
   m_LocalScale: {x: 0.03, y: 0.02, z: 0.09}
   m_Children: []
   m_Father: {fileID: 1483247512}
@@ -4794,7 +4794,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c140eca765876564abb947dc6da95f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_current: {x: 0, y: 0, z: 0}
   txt: {fileID: 1226773559}
   txt2: {fileID: 897215492}
 --- !u!1 &1356921864
@@ -6500,6 +6499,7 @@ GameObject:
   - component: {fileID: 1987392671}
   - component: {fileID: 1987392670}
   - component: {fileID: 1987392669}
+  - component: {fileID: 1987392673}
   m_Layer: 9
   m_Name: Button
   m_TagString: Untagged
@@ -6580,6 +6580,18 @@ Transform:
   m_Father: {fileID: 1846432051}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1987392673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987392668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e130db6ca82e44ba4de3ff537da939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2013635191
 GameObject:
   m_ObjectHideFlags: 0

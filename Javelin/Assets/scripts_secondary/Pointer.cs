@@ -14,6 +14,8 @@ public class Pointer : MonoBehaviour
     private Transform OriginController = null;
     private GameObject m_CurrentObject = null;
     private GameObject m_lastHitObject;
+    private bool m_grabbingSlider = false;
+    private Interactable m_slider;
 
     private void Start()
     {
@@ -30,14 +32,15 @@ public class Pointer : MonoBehaviour
     {
         Vector3 hitPoint = UpdateLine();
 
-        m_CurrentObject = UpdatePointerStatus();
+        if (!m_grabbingSlider)
+            m_CurrentObject = UpdatePointerStatus();
 
         if (OnPointerUpdate != null)
             OnPointerUpdate(hitPoint, m_CurrentObject);
 
         ProcessTouchPadDown();
     }
-
+    
 
     private void OnDestroy()
     {
@@ -61,11 +64,28 @@ public class Pointer : MonoBehaviour
         if (!m_CurrentObject)
             return;
 
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) {
-            Interactable interact = m_CurrentObject.GetComponent<Interactable>();
-            interact.m_current = lineRenderer.GetPosition(1);
-            interact.Pressed();
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            if (!m_grabbingSlider)
+            {
+                m_slider = m_CurrentObject.GetComponent<Interactable>();
+                m_grabbingSlider = true;
+            }
         }
+        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)) {
+            
+            m_slider.Pressed(lineRenderer);
+        }
+        if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
+        {
+            if (m_grabbingSlider)
+            {
+                m_grabbingSlider = false;
+            }
+        }
+
+        Press press = m_CurrentObject.GetComponent<Press>();
+        press.PressedButton();
     }
 
     private GameObject UpdatePointerStatus() {
@@ -78,6 +98,8 @@ public class Pointer : MonoBehaviour
         }
 
         m_lastHitObject = hit.collider.gameObject;
+        lineRenderer.SetPosition(1, hit.point);
+
         return hit.collider.gameObject;
     }
 

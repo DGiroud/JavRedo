@@ -1,36 +1,40 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Interactable : MonoBehaviour
 {
-    [HideInInspector]
-    public Vector3 m_current;
-    private Vector3 m_past;
     public Text txt;
     public Text txt2;
 
-    private void Update()
+    private float m_clampY;
+    private float m_clampZ;
+
+    private void Start()
     {
+        m_clampY = transform.localPosition.y;
+        m_clampZ = transform.localPosition.z;
     }
 
-    public void Pressed()
+    public void Pressed(LineRenderer lineRenderer)
     {
-        if (m_past == null)
-        {
-            m_past = m_current;
-        }
-        Vector3 previous = Camera.main.WorldToScreenPoint(m_past);
-        Vector3 current = Camera.main.WorldToScreenPoint(m_current);
-        MoveInteractable(previous.x - current.x);
-        m_past = m_current;
+        Ray pointer = new Ray(lineRenderer.GetPosition(0), lineRenderer.GetPosition(1) - lineRenderer.GetPosition(0));
+        float distToPlane = Mathf.Abs((pointer.origin.y - transform.position.y) / pointer.direction.y);
+        MoveInteractable(pointer.GetPoint(distToPlane).x);
     }
 
-    private void MoveInteractable(float amount)
+    private void MoveInteractable(float newX)
     {
-        if (transform.position.x < 0.12 && transform.position.x > -0.5)
+        txt.text = newX.ToString();
+        if (newX < 0.12f && newX > -0.5f)
         {
-            transform.Translate(new Vector3(amount, 0, 0));
-            txt.text = amount.ToString();
+            Vector3 newPos = new Vector3(
+                newX,
+                m_clampY,
+                m_clampZ
+            );
+            transform.localPosition = newPos;
         }
     }
 }

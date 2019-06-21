@@ -329,6 +329,7 @@
     <Compile Include="Assets\scripts_secondary\Door_Panel.cs" />
     <Compile Include="Assets\scripts_secondary\Interactable.cs" />
     <Compile Include="Assets\scripts_secondary\Pointer.cs" />
+    <Compile Include="Assets\scripts_secondary\Press.cs" />
     <Compile Include="Assets\scripts_secondary\Radar.cs" />
     <Compile Include="Assets\scripts_secondary\Radar_Secondary.cs" />
     <Compile Include="Assets\scripts_secondary\Reticule.cs" />
