@@ -1,29 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    public RaycastHit rayHit;
-    private bool sliding = false;
-    public Camera cam;
+    public Vector3 m_current;
+    public Vector3 m_past;
 
-    public void Update()
+    private Camera Main;
+
+    public void Pressed()
     {
-        Pressed();
+        if (m_past == null)
+        {
+            m_past = m_current;
+        }
+        Main = Camera.main;
+        Vector3 previous = Main.WorldToScreenPoint(m_past);
+        Vector3 current = Main.WorldToScreenPoint(m_current);
+        m_past = m_current;
+        MoveInteractable(previous.x - current.x);
     }
 
-    public void Pressed() {
-        Vector3 fwd = cam.transform.TransformDirection(Vector3.forward);
-        Debug.DrawRay(cam.transform.position, fwd * 2, Color.green);
-        if (Physics.Raycast(cam.transform.position, fwd, out rayHit)) {
-            // check tag
-            if (rayHit.collider.gameObject.tag == "Slide" && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
-            {
-                sliding = !sliding;
-            }
+    private void MoveInteractable(float amount)
+    {
+        if (transform.position.x < 0.12f && transform.position.x > -0.5)
+        {
+            transform.Translate(new Vector3(amount, 0, 0));
         }
-        
     }
-    
 }
