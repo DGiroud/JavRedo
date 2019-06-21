@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Interactable : MonoBehaviour
 {
+    [HideInInspector]
     public Vector3 m_current;
-    public Vector3 m_past;
+    private Vector3 m_past;
+    public Text txt;
+    public Text txt2;
 
-    private Camera Main;
+    private void Update()
+    {
+    }
 
     public void Pressed()
     {
@@ -13,18 +19,18 @@ public class Interactable : MonoBehaviour
         {
             m_past = m_current;
         }
-        Main = Camera.main;
-        Vector3 previous = Main.WorldToScreenPoint(m_past);
-        Vector3 current = Main.WorldToScreenPoint(m_current);
-        m_past = m_current;
+        Vector3 previous = Camera.main.WorldToScreenPoint(m_past);
+        Vector3 current = Camera.main.WorldToScreenPoint(m_current);
         MoveInteractable(previous.x - current.x);
+        m_past = m_current;
     }
 
     private void MoveInteractable(float amount)
     {
-        if (transform.position.x < 0.12f && transform.position.x > -0.5)
+        if (transform.position.x < 0.12 && transform.position.x > -0.5)
         {
             transform.Translate(new Vector3(amount, 0, 0));
+            txt.text = amount.ToString();
         }
     }
 }

@@ -34,6 +34,8 @@ public class Pointer : MonoBehaviour
 
         if (OnPointerUpdate != null)
             OnPointerUpdate(hitPoint, m_CurrentObject);
+
+        ProcessTouchPadDown();
     }
 
 
@@ -59,8 +61,11 @@ public class Pointer : MonoBehaviour
         if (!m_CurrentObject)
             return;
 
-        Interactable interat = m_CurrentObject.GetComponent<Interactable>();
-        interat.Pressed();
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger)) {
+            Interactable interact = m_CurrentObject.GetComponent<Interactable>();
+            interact.m_current = lineRenderer.GetPosition(1);
+            interact.Pressed();
+        }
     }
 
     private GameObject UpdatePointerStatus() {
