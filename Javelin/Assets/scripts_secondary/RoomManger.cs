@@ -47,6 +47,7 @@ public class RoomManger : MonoBehaviour
 
     [Header("UI")]
     public Image m_energyUI;
+    public Rotator m_energySpinner;
     public Image m_temperatureUI;
     public Image m_oxygenUI;
 
@@ -111,6 +112,8 @@ public class RoomManger : MonoBehaviour
         }
 
         m_energyUI.fillAmount = m_Energy;
+        
+        m_energySpinner.multiplyer = (m_Energy - 1f) / (100f - 1f) - .001f;
     }
 
     // Selects a room to be heated 

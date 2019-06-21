@@ -1,0 +1,168 @@
+fileFormatVersion: 2
+guid: 8c0cc9ada21b10b47b2bf5684cc27456
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Mdl_Base
+    100002: Mdl_Helix_Base
+    100004: Mdl_Helix_Base 1
+    100006: Mdl_Helix_Base 2
+    100008: Mdl_Helix_Spin
+    100010: Mdl_Helix_Spin 1
+    100012: Mdl_Helix_Spin 2
+    100014: Mdl_Light
+    100016: Mdl_Light1
+    100018: Mdl_Light2
+    100020: Mdl_Lights
+    100022: Mdl_Poles
+    100024: Mdl_Screen_10
+    100026: Mdl_Screen_7
+    100028: Mdl_Screen_8
+    100030: Mdl_Screen_9
+    100032: Mdl_Table
+    100034: //RootNode
+    400000: Mdl_Base
+    400002: Mdl_Helix_Base
+    400004: Mdl_Helix_Base 1
+    400006: Mdl_Helix_Base 2
+    400008: Mdl_Helix_Spin
+    400010: Mdl_Helix_Spin 1
+    400012: Mdl_Helix_Spin 2
+    400014: Mdl_Light
+    400016: Mdl_Light1
+    400018: Mdl_Light2
+    400020: Mdl_Lights
+    400022: Mdl_Poles
+    400024: Mdl_Screen_10
+    400026: Mdl_Screen_7
+    400028: Mdl_Screen_8
+    400030: Mdl_Screen_9
+    400032: Mdl_Table
+    400034: //RootNode
+    2100000: lambert1
+    2100002: lambert2
+    2300000: Mdl_Base
+    2300002: Mdl_Helix_Base
+    2300004: Mdl_Helix_Base 1
+    2300006: Mdl_Helix_Base 2
+    2300008: Mdl_Helix_Spin
+    2300010: Mdl_Helix_Spin 1
+    2300012: Mdl_Helix_Spin 2
+    2300014: Mdl_Poles
+    2300016: Mdl_Screen_10
+    2300018: Mdl_Screen_7
+    2300020: Mdl_Screen_8
+    2300022: Mdl_Screen_9
+    2300024: Mdl_Table
+    3300000: Mdl_Base
+    3300002: Mdl_Helix_Base
+    3300004: Mdl_Helix_Base 1
+    3300006: Mdl_Helix_Base 2
+    3300008: Mdl_Helix_Spin
+    3300010: Mdl_Helix_Spin 1
+    3300012: Mdl_Helix_Spin 2
+    3300014: Mdl_Poles
+    3300016: Mdl_Screen_10
+    3300018: Mdl_Screen_7
+    3300020: Mdl_Screen_8
+    3300022: Mdl_Screen_9
+    3300024: Mdl_Table
+    4300000: Mdl_Base
+    4300002: Mdl_Helix_Spin
+    4300004: Mdl_Helix_Base
+    4300006: Mdl_Helix_Spin
+    4300008: Mdl_Helix_Base
+    4300010: Mdl_Helix_Spin
+    4300012: Mdl_Helix_Base
+    4300014: Mdl_Table
+    4300016: Mdl_Screen_7
+    4300018: Mdl_Screen_8
+    4300020: Mdl_Screen_9
+    4300022: Mdl_Screen_10
+    4300024: Mdl_Poles
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
