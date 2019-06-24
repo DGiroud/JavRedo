@@ -43,7 +43,7 @@ public class RoomManger : MonoBehaviour
     [SerializeField] private List<Door> m_Doors;            //List Of Doors On The Ship
 
     [Header("Stats")]
-    [Range(-0.1f, 1.0f)]
+    [Range(0f, 1.0f)]
     [SerializeField] private float m_Energy;                //Players Current Energy
     [SerializeField] private float m_secondsToHeat;         //How Long It Takes To Heat A Room
     [SerializeField] private float m_secondsToCool;         //How Long It Takes To Heat A Room
@@ -281,10 +281,10 @@ public class RoomManger : MonoBehaviour
         //      Updates UI Display
         //-----------------------------------------------------------------------------------------------------------------------------------------------
         m_energyUI.fillAmount = m_Energy;
-        m_energySpinner.multiplyer = (m_Energy - 1f) / (100f - 1f) - .001f;
+        m_energySpinner.speed = m_Energy * 2;
 
         m_temperatureUI.fillAmount = m_Rooms[0].m_RoomTemp;
-        m_temperatureSpinner.multiplyer = (m_Rooms[0].m_RoomTemp - 1f) / (100f - 1f) - .001f;
+        m_temperatureSpinner.speed = m_Rooms[0].m_RoomTemp * 2;
         //-----------------------------------------------------------------------------------------------------------------------------------------------
 
     }

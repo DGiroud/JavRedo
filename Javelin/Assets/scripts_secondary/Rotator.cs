@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Rotator : MonoBehaviour
 {
-    public float multiplyer;
-
-
+    public float speed;
 
     private void Update()
     {
-        if (multiplyer != 0.0f)
-            transform.Rotate(0, Time.deltaTime / multiplyer, 0);
-        else return;
+        if (speed != 0.0f)
+            transform.Rotate(0, (Time.deltaTime * 360) * speed, 0);
+        else return;      
+        
     }
 }
