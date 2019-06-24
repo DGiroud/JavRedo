@@ -5,6 +5,19 @@ using UnityEngine.UI;
 
 public class Interactable : MonoBehaviour
 {
+    public bool outline;
+
+    public virtual void DoFunction(RoomManger RM)
+    {
+
+    }
+
+
+
+
+
+    /*//============================================================================================================================
+
     public Text txt;
     public Text txt2;
 
@@ -37,4 +50,6 @@ public class Interactable : MonoBehaviour
             transform.localPosition = newPos;
         }
     }
+    
+    *///============================================================================================================================
 }

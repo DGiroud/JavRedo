@@ -10,6 +10,8 @@ public class Rotator : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(0,Time.deltaTime/ multiplyer, 0);
+        if (multiplyer != 0.0f)
+            transform.Rotate(0, Time.deltaTime / multiplyer, 0);
+        else return;
     }
 }

@@ -9,6 +9,8 @@ public class Pointer : MonoBehaviour
     public LineRenderer lineRenderer = null;
     public LayerMask m_AllObjects = 0;
     public LayerMask m_InteractibleObjects = 0;
+    [SerializeField] private RoomManger RM;
+
     public UnityAction<Vector3, GameObject> OnPointerUpdate = null;
 
     private Transform OriginController = null;
@@ -16,6 +18,8 @@ public class Pointer : MonoBehaviour
     private GameObject m_lastHitObject;
     private bool m_grabbingSlider = false;
     private Interactable m_slider;
+
+    
 
     private void Start()
     {
@@ -74,7 +78,7 @@ public class Pointer : MonoBehaviour
         }
         if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)) {
             
-            m_slider.Pressed(lineRenderer);
+            //m_slider.Pressed(lineRenderer);
         }
         if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger))
         {
@@ -84,8 +88,8 @@ public class Pointer : MonoBehaviour
             }
         }
 
-        Press press = m_CurrentObject.GetComponent<Press>();
-        press.PressedButton();
+       // Press press = m_CurrentObject.GetComponent<Press>();
+        //press.PressedButton();
     }
 
     private GameObject UpdatePointerStatus() {

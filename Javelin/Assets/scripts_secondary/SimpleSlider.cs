@@ -7,21 +7,20 @@ public class SimpleSlider : MonoBehaviour
     public Collider[] Slidernode;
 
     public float targetTemp = 0;
-   
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private Sound_Manager SM;
+
+
+
+
+
+
+
+    
     private void OnTriggerEnter(Collider collision)
     {
         targetTemp = 0;
+        SM.PlaySound(2);
         foreach (var collider in Slidernode)
         {
             targetTemp += 0.05f;

@@ -9,17 +9,21 @@ public class Entity_Alpha : MonoBehaviour
 
     [Space]
     [SerializeField] private Room_Alpha m_currentRoom;
-    [SerializeField] private Room_Alpha m_previousRoom;
-    [SerializeField] private Room_Alpha m_targetRoom;
+    private Room_Alpha m_previousRoom;
+    private Room_Alpha m_targetRoom;
 
 
 
-    public bool m_seeking;
-    [SerializeField] private bool m_waiting = true;
+    private bool m_seekingRoom;
+    private bool m_seekingDoor;
+    private bool m_stayingPut;
+    private bool m_waiting = true;
 
     private float m_waitTimer;
     private float m_previousTimer;
 
+    private int i = -1;
+    private int x = 0;
 
     private void Update()
     {
@@ -42,8 +46,19 @@ public class Entity_Alpha : MonoBehaviour
             }
         }
 
+        if (m_seekingDoor)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, m_currentRoom.m_connectedRooms[x].m_door.transform.position, Time.deltaTime * m_speed);
 
-        if (m_seeking)
+            if (Vector3.Distance(transform.position, m_currentRoom.m_connectedRooms[x].m_door.transform.position) <= 0.05f)
+            {
+                m_seekingDoor = false;
+                m_seekingRoom = true;
+            }
+        }
+
+
+        if (m_seekingRoom)
         {
             transform.position = Vector3.MoveTowards(transform.position, m_targetRoom.transform.position, Time.deltaTime * m_speed);
 
@@ -55,35 +70,51 @@ public class Entity_Alpha : MonoBehaviour
 
     void TargetRoom()
     {
+        m_stayingPut = false;
         foreach (var availableRoom in m_currentRoom.m_connectedRooms)
         {
+            i++;
+
             if (m_targetRoom == null && availableRoom.m_room != m_previousRoom && availableRoom.m_door.locked == false)
+            {
                 m_targetRoom = availableRoom.m_room;
+            }
 
             if (m_targetRoom != null)
+            {
                 if (availableRoom.m_room.m_temperature >= m_targetRoom.m_temperature && availableRoom.m_room != m_previousRoom && availableRoom.m_door.locked == false)
+                {
                     m_targetRoom = availableRoom.m_room;
+                    x = i;
+                }
+            }
+            
         }
 
         if (m_targetRoom == null)
             StayPut();
 
-        m_seeking = true;
+        m_seekingDoor = true;
+
     }
 
     void StayPut()
     {
         m_targetRoom = m_currentRoom;
+        m_stayingPut = true;
     }
 
     void SetRoom()
     {
-        m_seeking = false;
+        m_seekingRoom = false;
         m_previousRoom = m_currentRoom;
         m_currentRoom = m_targetRoom;
         m_previousTimer = 10.0f;
         m_waitTimer = m_waitTime;
         m_waiting = true;
         m_targetRoom = null;
+        i = -1;
     }
+
+    
 }

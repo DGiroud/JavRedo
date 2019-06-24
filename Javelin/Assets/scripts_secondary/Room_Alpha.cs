@@ -14,6 +14,4 @@ public class Room_Alpha : MonoBehaviour
     public float m_temperature;
 
     public Room[] m_connectedRooms;
-
-    
 }
