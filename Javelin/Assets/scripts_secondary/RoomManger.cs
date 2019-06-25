@@ -344,7 +344,7 @@ public class RoomManger : MonoBehaviour
                 if (m_Doors[m_index].m_Door.locked)
                 {
                     m_Doors[m_index].m_Door.locked = false;
-                    m_doorsLocked = true;
+                    m_doorsLocked = false;
                     //play sound here
                 }
 
@@ -356,8 +356,6 @@ public class RoomManger : MonoBehaviour
                 break;
                 //-----------------------------------------------------------------------------------------------------------------------------------------------
         }
-
         m_indexType = 0;
     }
-
 }

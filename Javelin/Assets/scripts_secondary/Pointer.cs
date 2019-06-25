@@ -13,6 +13,7 @@ public class Pointer : MonoBehaviour
 
     public UnityAction<Vector3, GameObject> OnPointerUpdate = null;
 
+    [SerializeField] private Transform m_rightHandAnchor;
     private Transform OriginController = null;
     private GameObject m_CurrentObject = null;
     private GameObject m_lastHitObject;
@@ -70,6 +71,11 @@ public class Pointer : MonoBehaviour
 
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
+            Interaction interaction = m_CurrentObject.GetComponent<Interaction>();
+
+            if (interaction)
+                interaction.interactor.OnSelect();
+
             if (!m_grabbingSlider)
             {
                 m_slider = m_CurrentObject.GetComponent<Interactable>();
@@ -92,7 +98,8 @@ public class Pointer : MonoBehaviour
         //press.PressedButton();
     }
 
-    private GameObject UpdatePointerStatus() {
+    private GameObject UpdatePointerStatus()
+    {
         RaycastHit hit = CreateRayCast(m_InteractibleObjects);
         Material mat = hit.transform.GetComponent<Renderer>().material;
 
