@@ -6,6 +6,13 @@ public class Interact_Slider : Interactable
 {
     private bool m_isDragging = false;
 
+    public Collider[] slidernode;
+
+    public float targetTemp = 0;
+
+    [SerializeField] private Sound_Manager SM;
+    [SerializeField] private RoomManger RM;
+
     [SerializeField] private Color m_selectedColour;
     [SerializeField] private Color m_deselectedColour;
 
@@ -16,11 +23,50 @@ public class Interact_Slider : Interactable
     {
         if (m_isDragging)
         {
-            float newX = (Raycaster.GetHitPoint() - transform.localPosition).x;
-            newX = Mathf.Clamp(newX, m_bottomClamp.position.x, m_topClamp.position.x);
-            Vector3 newPosition = new Vector3(newX, 0, 0);
+            float newX = ((Raycaster.GetHitPoint() - transform.localPosition).x);
 
+            if (newX < (Raycaster.GetHitPoint() - m_bottomClamp.localPosition).x)
+            {
+                newX = -0.01f;
+                Vector3 newPosition1 = new Vector3(newX, 0, 0);
+                transform.localPosition += newPosition1;
+                OnDeselect();
+                return;
+            }
+
+            if (newX > (Raycaster.GetHitPoint() - m_topClamp.localPosition).x)
+            {
+                newX = 0.01f;
+                Vector3 newPosition1 = new Vector3(newX, 0, 0);
+                transform.localPosition += newPosition1;
+                OnDeselect();
+                return;
+            }
+
+            Vector3 newPosition = new Vector3(newX, 0, 0);
             transform.localPosition += newPosition;
+
+
+
+        }
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        targetTemp = 0;
+
+        if(!SM.SFXSource.isPlaying)
+            SM.PlaySound(2);
+
+        foreach (var collider in slidernode)
+        {
+            targetTemp += 0.05f;
+
+            if(RM.m_indexType == Selectable.Room_Map)
+            RM.m_Rooms[RM.m_index].m_MaxTemperature = targetTemp;
+
+            if (collider == collision)
+                break;
         }
     }
 

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public abstract class Interactable : MonoBehaviour
 {
-    public virtual void OnHover() { Debug.Log("Hovering"); }
-    public virtual void OnUnhover() { Debug.Log("Unhovering"); }
-    public virtual void OnSelect() { Debug.Log("Selecting"); }
-    public virtual void OnDeselect() { Debug.Log("Deselecting"); }
+    public virtual void OnHover() {}
+    public virtual void OnUnhover() {}
+    public virtual void OnSelect() {}
+    public virtual void OnDeselect(){}
 }

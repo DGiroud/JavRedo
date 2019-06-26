@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 
@@ -19,14 +20,17 @@ public class Room
     public bool m_isChanging;
     public Image m_heatModule;
     public Room_Alpha m_roomModual;
+    public Interact_UI function;
 }
 
 [System.Serializable]
 public class Door
 {
     public string name;
-    public Text status;
+    public TextMeshProUGUI status;
+    public Interact_Door function;
     public Door_Alpha m_Door;
+    public Image m_colour;
     
 }
 
@@ -39,8 +43,8 @@ public class RoomManger : MonoBehaviour
 
 
     [Header("Ship Layout")]
-    [SerializeField] private List<Room> m_Rooms;            //List Of Rooms On The Ship
-    [SerializeField] private List<Door> m_Doors;            //List Of Doors On The Ship
+    public List<Room> m_Rooms;            //List Of Rooms On The Ship
+    public List<Door> m_Doors;            //List Of Doors On The Ship
 
     [Header("Stats")]
     [Range(0f, 1.0f)]
@@ -52,21 +56,28 @@ public class RoomManger : MonoBehaviour
     [Header("Index")]
     public Selectable m_indexType;                          //What The Current Selected Type Is
     public int m_index;                                     //The Room Or Door Index Number 
+    public bool m_roomSelected;
+    public bool m_doorSelected;
 
     [Header("UI")]
     [SerializeField] private Image m_energyUI;              //Bar That Displays Energy 
     [SerializeField] private Rotator m_energySpinner;       //Reference For The Helix Object That Displays Energy
     [SerializeField] private Image m_temperatureUI;         //Bar That Displays Temperature
     [SerializeField] private Rotator m_temperatureSpinner;  //Reference For The Helix Object That Displays Temperature
+    [SerializeField] private TextMeshProUGUI m_mapDisplay;  //Displays The Rooms And Doors On The Screen
 
     [Header("Room Colours")]
     [SerializeField] private Color m_temp_low;              //Lowest Temperature
     [SerializeField] private Color m_temp_med1;             //Medium Temperature 1
     [SerializeField] private Color m_temp_med2;             //Medium Temperature 2
     [SerializeField] private Color m_temp_high;             //Highest Temperature
+    [Space]
+    public Color m_door_selected;
+    public Color m_door_unSelected;
+    public Color m_door_hovered;
 
     [Header("Sound Manager")]
-    [SerializeField] private Sound_Manager SM;              //Reference For The Sound Manager
+    public Sound_Manager SM;              //Reference For The Sound Manager
 
 
     //============================================================================================================================================================
@@ -290,37 +301,50 @@ public class RoomManger : MonoBehaviour
     }
     //============================================================================================================================================================
 
-
-    // Selects a room to be heated 
-    void SelectRoom()
+    public void UpdateMapDisplay(int indexNumber)
     {
-        //Check how many rooms are in the game
-        //Allows the player to select a room
-        
-    }
+        switch (m_indexType)
+        {
+            case Selectable.None:
+                m_mapDisplay.text = "";
+                break;
 
-    // Deselects a room to be heated
-    void DeSelectRoom()
-    {
-        //NOT IMPORTANT NOW
+            case Selectable.Door_Panel:
+                m_mapDisplay.text = "";
+                break;
+
+            case Selectable.Door_Map:
+                m_mapDisplay.text = m_Doors[indexNumber].name;
+                break;
+
+            case Selectable.Room_Map:
+                m_mapDisplay.text = m_Rooms[indexNumber].name;
+                break;
+        }
+
     }
 
     public void DoFunction()
     {
+        Debug.Log("");
         switch (m_indexType)
         {
 
             //-----------------------------------------------------------------------------------------------------------------------------------------------
             case Selectable.None:
-
+                Debug.Log("None");
                 //play sound here
 
                 break;
             //-----------------------------------------------------------------------------------------------------------------------------------------------
             case Selectable.Room_Map:     //Room Selected
 
-                if (m_Rooms[m_index].m_RoomTemp < m_Rooms[m_index].m_MaxTemperature)
+                Debug.Log("Room");
+                if (m_Rooms[m_index].m_RoomTemp < m_Rooms[m_index].m_MaxTemperature)                
                     m_Rooms[m_index].m_isChanging = true;
+
+                m_roomSelected = false;
+                m_Rooms[m_index].function.OnUnhover();
 
                 SM.PlaySound(0);
                 break;
@@ -334,24 +358,41 @@ public class RoomManger : MonoBehaviour
             //-----------------------------------------------------------------------------------------------------------------------------------------------
             case Selectable.Door_Panel:     //Door Selected
 
+                Debug.Log("Door");
+
                 if (!m_doorsLocked)
                 {
+                    Debug.Log("1");
                     m_Doors[m_index].m_Door.locked = true;
+                    m_Doors[m_index].status.text = "LOCKED";
+                    m_Doors[m_index].status.color = Color.red;
+                    m_Doors[m_index].m_colour.color = m_door_selected;
+                    m_Doors[m_index].function.selected = false;
+                    m_Doors[m_index].function.OnUnhover();
                     m_doorsLocked = true;
                     //play sound here
                 }
 
-                if (m_Doors[m_index].m_Door.locked)
+                else if (m_Doors[m_index].m_Door.locked)
                 {
+                    Debug.Log("2");
                     m_Doors[m_index].m_Door.locked = false;
+                    m_Doors[m_index].status.text = "OPEN";
+                    m_Doors[m_index].status.color = Color.green;
+                    m_Doors[m_index].m_colour.color = m_door_unSelected;
+                    m_Doors[m_index].function.selected = false;
+                    m_Doors[m_index].function.OnUnhover();
                     m_doorsLocked = false;
                     //play sound here
                 }
 
-                if (m_doorsLocked)
+                else if (m_doorsLocked)
                 {
+                    Debug.Log("3");
                     //play sound here
                 }
+
+                m_doorSelected = false;
 
                 break;
                 //-----------------------------------------------------------------------------------------------------------------------------------------------
